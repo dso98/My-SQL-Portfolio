@@ -1,0 +1,76 @@
+Dataset used is from Kaggle: https://www.kaggle.com/datasets/redpen12/employees-satisfaction-analysis
+
+
+-- 1. Which three departments had the highest satisfaction scores, and which three had the lowest satisfaction scores?
+SELECT 
+dept,
+ROUND(avg(satisfaction_level), 2) AS avg_satisfaction
+FROM hr_happiness.employee_attrition
+GROUP BY 1
+ORDER BY 2 DESC
+;
+
+-- 2. What is the relationship between salary and satisfaction score?
+SELECT DISTINCT salary
+FROM hr_happiness.employee_attrition;
+
+-- 'low'
+-- 'medium'
+-- 'high'
+
+SELECT 
+salary,
+ROUND(avg(satisfaction_level), 2) AS avg_satisfaction
+FROM hr_happiness.employee_attrition
+GROUP BY 1
+ORDER BY 2 
+;
+
+-- 3. How did the top two and bottom two departments perform in the following areas.
+-- 'support'
+-- 'management' top_dept
+
+-- "hr"
+-- "accounting" lower_dept
+
+-- a. last_evaluation
+
+-- b. number_project
+
+-- c. average_monthly_hours
+SELECT  
+    CASE
+        WHEN dept IN('support', 'management') THEN 'top_dept'
+        WHEN dept IN('hr', 'accounting') THEN 'lower_dept'
+    END AS top_bot,
+    ROUND(AVG(last_evaluation), 2) AS avg_last_evaluation,
+    ROUND(AVG(number_project), 1) AS avg_projects,
+    AVG(average_montly_hours) AS hours_worked,
+    AVG(time_spend_company) AS time_at_company
+FROM hr_happiness.employee_attrition
+WHERE dept IN('support', 'management', 'hr', 'accounting')
+GROUP BY 1
+;
+
+-- d. time_spend_company
+
+-- e. Work_accident
+
+-- f. promotion_last_5years
+
+SELECT  
+    CASE
+        WHEN dept IN('support', 'management') THEN 'top_dept'
+        WHEN dept IN('hr', 'accounting') THEN 'lower_dept'
+    END AS top_bot,
+    COUNT('Emp ID') AS num_of_emp,
+    ROUND(AVG(last_evaluation), 2) AS avg_last_evaluation,
+    ROUND(AVG(number_project), 1) AS avg_projects,
+    ROUND(AVG(average_montly_hours), 2) AS hours_worked,
+    Round(AVG(time_spend_company),2) AS time_at_company,
+    Round(AVG(work_accident),2) AS avg_num_accidents,
+    Round(AVG(promotion_last_5years),2) AS avg_num_proms
+FROM hr_happiness.employee_attrition
+WHERE dept IN('support', 'management', 'hr', 'accounting')
+GROUP BY 1
+;
