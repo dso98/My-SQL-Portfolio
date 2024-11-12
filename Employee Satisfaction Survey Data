@@ -1,5 +1,8 @@
 Dataset used is from Kaggle: https://www.kaggle.com/datasets/redpen12/employees-satisfaction-analysis
 
+Designed and implemented a SQL-based employee survey analysis project, providing actionable insights on satisfaction, engagement, and attrition risks to inform HR strategies. 
+
+
 
 -- 1. Which three departments had the highest satisfaction scores, and which three had the lowest satisfaction scores?
 SELECT 
